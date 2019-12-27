@@ -13,17 +13,29 @@ function validate(){
     password=document.getElementById('pass1');
     repeat_password=document.getElementById('pass2');
     
-    if (password != repeat_password) { 
+    if (password.value != repeat_password.value) { 
 		alert ("\nPassword did not match: Please try again...");
 		document.getElementById('pass2').focus();
-		return false;
+    return false;
 	} 
+  return true;
+}
+function toggle_pwd() {
+  var x = document.getElementById("pass1");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+} 
+function clear_input(){
+  $('#sign_up')[0].reset();
 }
 </script>
 </head>
 <body>
 
-<form name = "sign_up" action="sign_up.php" method = "post">
+<form id="sign_up" name = "sign_up" action="sign_up.php" method = "post" onloadstart="clear_input() ">
   <div class="container">
     <h1>Sign Up Here!</h1>
     <hr>
@@ -34,14 +46,18 @@ function validate(){
     <label for="psw"><b>Password</b></label><b for="pwd" class = "star">*</b>
     <input type="password" id ="pass1" placeholder="Enter Password" name="pswd" required>
 
+    <!-- An element to toggle between password visibility -->
+    <input type="checkbox" onclick="toggle_pwd()">Show Password  
+    <br>
+    <br>
     <label for="psw-repeat"><b>Repeat Password</b></label><b for="pswd-repeat" class = "star">*</b>
-    <input type="password" id = "pass2" placeholder="Repeat Password" name="pswd-repeat" required onchange = "return validate()" >
-
+    <input type="password" id = "pass2" placeholder="Repeat Password" name="pswd-repeat" required >
+  
 	<label for="clg_name"><b>College Name</b></label><b for="clg_name" class = "star">*</b>
     <input type="text" placeholder="Enter College Name" name="clg_name" required >
     
 	<label for="clg_city"><b>College City</b></label><b for="selectNumber" class = "star">*</b> <br>
-	<select class = "form-control" id="selectNumber">
+  <select class = "form-control" id="selectNumber" name="clg_city">
 		<option>Choose a city</option>
 		<script>
 		  var select = document.getElementById("selectNumber");
@@ -59,7 +75,7 @@ function validate(){
     <hr>
     <p>By creating an account you agree to our <a href="#">Terms & Conditions</a>.</p>
 
-    <button type="submit" class="registerbtn">Sign Up</button>
+    <button type="submit" class="registerbtn" onclick="return validate()">Sign Up</button>
   </div>
   
   <div class="container signin">

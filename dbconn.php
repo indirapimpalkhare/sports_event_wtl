@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "indo";
-$password = "password123";
+$username = "root";
+$password = "";
 $db = "sports_event";
 
 // Create connection

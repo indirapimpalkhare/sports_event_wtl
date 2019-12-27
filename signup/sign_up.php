@@ -5,17 +5,78 @@
 
 <?php
 require_once("../dbconn.php");
+$username ="";
 
-$insert_query = "INSERT INTO users (user_id,username, pwd, college_name, college_city) 
-VALUES (DEFAULT, '$_POST[uname]', '$_POST[pswd]','$_POST[clg_name]', '$_POST[clg_city]')";
-if ($conn->query($insert_query) === TRUE) {
-    //echo "New record created successfully";
-	header('Location: /sports_event/home/homepage.html');
-} 
-else {
-    echo "Error: ". $conn->error;
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    // Validate username
+    if(empty(trim($_POST["uname"]))){
+        $username_err = "Please enter a username.";
+    } else{
+        // Prepare a select statement
+        $sql = "SELECT * FROM users WHERE username = ?";
+        
+        if($stmt = mysqli_prepare($conn, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            
+            // Set parameters
+            $param_username = trim($_POST["uname"]);
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                /* store result */
+                mysqli_stmt_store_result($stmt);
+                
+                if(mysqli_stmt_num_rows($stmt) == 1){
+                    $username_err = "This username is already taken.";
+                    echo "<script type='text/javascript'>alert('$username_err'); </script>";
+                    echo "<script> location.href='http://localhost/sports_event/signup/sign_up.html'; </script>";
+                } else{
+                    $username = trim($_POST["uname"]);
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
+         
+        // Close statement
+        mysqli_stmt_close($stmt);
+    }
+/*if (!empty($username_err)){
+    header('Location : /sports_event/signup/sign_up.html');
+
+}*/
+if(empty($username_err)){
+        
+    // Prepare an insert statement
+    $sql ="INSERT INTO users (username, pwd, college_name, college_city) values (?,?,?,?);";
+
+    if($stmt = mysqli_prepare($conn, $sql)){
+        // Bind variables to the prepared statement as parameters
+        mysqli_stmt_bind_param($stmt, "ssss", $param_username, $param_password,$param_college_name,$param_college_city);
+        
+        // Set parameters
+        $param_username = $username;
+        $param_password = password_hash($_POST["pswd"],PASSWORD_DEFAULT);
+        $param_college_name = trim($_POST["clg_name"]);
+        $param_college_city = trim($_POST["clg_city"]);
+    // Attempt to execute the prepared statement
+        if(mysqli_stmt_execute($stmt)){
+            // Redirect to login page
+            header('Location: /sports_event/home/homepage.html');
+        } else{
+            echo "Something went wrong. Please try again later.";
+        }
+    }
+     
+    // Close statement
+    mysqli_stmt_close($stmt);
 }
 
+// Close connection
+mysqli_close($conn);
+}
 ?>
 
 
