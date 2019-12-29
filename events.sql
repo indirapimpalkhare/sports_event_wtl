@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 29, 2019 at 03:44 PM
+-- Generation Time: Dec 29, 2019 at 05:54 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -32,14 +32,14 @@ CREATE TABLE `events` (
   `event_id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
   `event_name` varchar(20) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
-  `reg_fees` int(11) NOT NULL,
-  `reg_last_date` date DEFAULT NULL,
-  `prize_money` int(11) NOT NULL,
-  `link` varchar(50) NOT NULL,
-  `sport_details` text NOT NULL,
-  `address` varchar(100) NOT NULL
+  `sdate` varchar(20) NOT NULL,
+  `end_date` varchar(20) NOT NULL,
+  `reg_fees` varchar(20) DEFAULT NULL,
+  `reg_last_date` varchar(20) DEFAULT NULL,
+  `prize_money` varchar(20) DEFAULT NULL,
+  `link` varchar(50) DEFAULT NULL,
+  `sport_details` varchar(200) DEFAULT NULL,
+  `addr` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -61,7 +61,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
