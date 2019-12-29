@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 28, 2019 at 07:51 AM
+-- Generation Time: Dec 29, 2019 at 03:44 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -30,14 +30,16 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `events` (
   `event_id` int(11) NOT NULL,
-  `event_name` varchar(50) NOT NULL,
-  `dates` varchar(50) NOT NULL,
-  `sports` varchar(100) NOT NULL,
-  `registration_fees` int(11) NOT NULL,
-  `last_date` varchar(25) NOT NULL,
-  `prize_money` int(11) DEFAULT NULL,
-  `link` varchar(70) NOT NULL,
-  `address` varchar(100) DEFAULT NULL
+  `username` varchar(20) NOT NULL,
+  `event_name` varchar(20) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `reg_fees` int(11) NOT NULL,
+  `reg_last_date` date DEFAULT NULL,
+  `prize_money` int(11) NOT NULL,
+  `link` varchar(50) NOT NULL,
+  `sport_details` text NOT NULL,
+  `address` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -48,7 +50,8 @@ CREATE TABLE `events` (
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
-  ADD PRIMARY KEY (`event_id`);
+  ADD PRIMARY KEY (`event_id`),
+  ADD KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -59,6 +62,16 @@ ALTER TABLE `events`
 --
 ALTER TABLE `events`
   MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `events`
+--
+ALTER TABLE `events`
+  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
