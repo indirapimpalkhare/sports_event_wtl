@@ -4,66 +4,43 @@
 
 
 <?php
+session_start();
+
 require_once("../dbconn.php");
-$username ="";
+
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
-    // Validate username
-    if(empty(trim($_POST["uname"]))){
-        $username_err = "Please enter a username.";
-    } else{
-        // Prepare a select statement
-        $sql = "SELECT * FROM users WHERE username = ?";
-        
-        if($stmt = mysqli_prepare($conn, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
-            
-            // Set parameters
-            $param_username = trim($_POST["uname"]);
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                /* store result */
-                mysqli_stmt_store_result($stmt);
-                
-                if(mysqli_stmt_num_rows($stmt) == 1){
-                    $username_err = "This username is already taken.";
-                    echo "<script type='text/javascript'>alert('$username_err'); </script>";
-                    echo "<script> location.href='http://localhost/sports_event/signup/sign_up.html'; </script>";
-                } else{
-                    $username = trim($_POST["uname"]);
-                }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-        }
-         
-        // Close statement
-        mysqli_stmt_close($stmt);
-    }
-/*if (!empty($username_err)){
-    header('Location : /sports_event/signup/sign_up.html');
 
-}*/
-if(empty($username_err)){
-        
+    $sdate= $_POST["start_date"];
+    $edate=$_POST["end_date"];
+    $last_date=$_POST["ldate"];
+    strval( date('Y/m/d', strtotime($sdate)));
+    strval(date('Y/m/d',strtotime($edate)));
+    strval( date('Y/m/d', strtotime($last_date)));
     // Prepare an insert statement
-    $sql ="INSERT INTO users (username, pwd, college_name, college_city) values (?,?,?,?);";
+    $sql ="INSERT INTO events (username, event_name,sdate,end_date,reg_fees,reg_last_date,prize_money,link,sport_details,addr ) values (?,?,?,?,?,?,?,?,?,?);";
 
     if($stmt = mysqli_prepare($conn, $sql)){
         // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "ssss", $param_username, $param_password,$param_college_name,$param_college_city);
+        mysqli_stmt_bind_param($stmt, "ssssssssss", $param_username, $param_event_name,$param_sdate,$param_edate,$rfees,$lastDate,$cashPrize,$plink,$sportsDetails,$location);
         
         // Set parameters
-        $param_username = $username;
-        $param_password = password_hash($_POST["pswd"],PASSWORD_DEFAULT);
-        $param_college_name = trim($_POST["clg_name"]);
-        $param_college_city = trim($_POST["clg_city"]);
+       $param_username = $_SESSION["username"];
+      // $param_username="kshitija";
+        $param_event_name = trim($_POST["event_name"]);
+        $param_sdate=$sdate;
+        $param_edate=$edate;
+        $rfees=$_POST["registration_fees"];
+        $lastDate=$last_date;
+        $cashPrize=$_POST["prize_money"];
+        $plink=$_POST["links"];
+        $sportsDetails=$_POST["sports"];
+        $location=$_POST["address"];
+
     // Attempt to execute the prepared statement
         if(mysqli_stmt_execute($stmt)){
-            // Redirect to login page
+            // Redirect to home page
+            echo "<script type='text/javascript'>alert('Event Added Successfully'); </script>";
             header('Location: /sports_event/home/homepage.html');
         } else{
             echo "Something went wrong. Please try again later.";
@@ -72,7 +49,7 @@ if(empty($username_err)){
      
     // Close statement
     mysqli_stmt_close($stmt);
-}
+
 
 // Close connection
 mysqli_close($conn);
