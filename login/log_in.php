@@ -23,7 +23,8 @@ $username_err = $password_err = "";
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Check if username is empty
+ /*    ---Not required as client side required field present in html---
+   // Check if username is empty
     if(empty(trim($_POST["username"]))){
         $username_err = "Please enter username.";
     } else{
@@ -36,33 +37,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password_err = "Please enter your password.";
     } 
 	else{
-        $password = trim($_POST["password"]);
-		//echo "pwd accepted" . "<br>" ;
+       // $password = password_hash($_POST["password"],PASSWORD_DEFAULT);
+        $password = $_POST["password"];
 	}
     
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
+        */
+        $password=trim($_POST["pswd"]);
+        $username=trim($_POST["uname"]);
         $sql = "SELECT username, pwd FROM users WHERE username = ?";
         //echo "sql prepared" . "<br>" ;
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
             $param_username = $username;
-			mysqli_stmt_bind_param($stmt, "s", $param_username);
-          //  echo "binding done" . "<br>" ;
-            // Set parameters
-            
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+			mysqli_stmt_bind_param($stmt, "s", $param_username);            
+                if(mysqli_stmt_execute($stmt)){
                 // Store result
-			//	echo "executed" . "<br>" ;
                 mysqli_stmt_store_result($stmt);
-              //  echo "reuslt stored" . "<br>" ;
                 // Check if username exists, if yes then verify password
 				//echo mysqli_stmt_num_rows($stmt);
                 if(mysqli_stmt_num_rows($stmt) == 1){   
-				//	echo "1 row" . "<br>" ;				
                     // Bind result variables
                     mysqli_stmt_bind_result($stmt, $username, $hashed_password);
                     if(mysqli_stmt_fetch($stmt)){
@@ -98,7 +94,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
         // Close statement
         mysqli_stmt_close($stmt);
-    }
+    
     
     // Close connection
     mysqli_close($conn);
@@ -123,10 +119,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <hr>
 
     <label for="uname" ><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="username" required>
+    <input type="text" placeholder="Enter Username" name="uname" required>
 
     <label for="pswd"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" required>
+    <input type="password" placeholder="Enter Password" name="pswd" required>
 
     <button type="submit" class="registerbtn">Log In</button>
   </div>
