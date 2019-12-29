@@ -9,22 +9,43 @@
   <!--we use style tag for internal css inside head tag-->
 <script>
 
-function validate_reg()
-   {
-    var reg_fees,prize;
-    reg_fees=document.getElementById('reg').value;
-    prize_money=document.getElementById('pri').value;
-    var numbers = /^[0-9]+$/;
-     
-      var isValid1 = numbers.test(reg_fees);
-      var isValid2 = numbers.test(prize_money);
-      if(!isValid1 | !isValid2){
-        alert('Please input numeric characters only in registration fees and prize fields');
-      document.getElementById('reg').focus();
+function validate(){
+  if( Date.parse(document.new_event.start_date.value)>=Date.parse(document.new_event.end_date.value))
+  {
+      alert("Enddate must be greater than start date");
+      document.new_event.end_date.focus();
       return false;
-      }
-      return true;
    }
+   var reg_fees = document.new_event.registration_fees.value;
+   var prizes = document.new_event.prize_money.value; 
+   var isnum1 = /^\d+$/.test(reg_fees);  
+   var isnum2 = /^\d+$/.test(prizes);  
+
+   if(reg_fees=="" && prizes==""){
+     return true;
+   }
+   else if(reg_fees != "" && prizes==""){
+      if(!isnum1){
+        alert("Regitration fees should have only numerical value!");
+        document.new_event.registration_fees.focus();
+        return false;
+      }
+   }
+  else if(prizes !="" && reg_fees==""){
+   if(!isnum2){
+     alert("Prize field should have only numerical value!");
+     document.new_event.prize_money.focus();
+     return false;
+   }
+  }
+  else{
+    if(!isnum1 || !isnum2){
+      alert("Registration fees and prize field should have numerical values");
+      document.new_event.registration_fees.focus();
+        return false;
+    }
+  }
+}
   
 function clear_input(){
   document.new_event.reset();
@@ -41,29 +62,31 @@ function clear_input(){
     <label for="event_name" ><b>Event Name</b></label><b for="event_name" class = "star">*</b>
     <input type="text" placeholder="Enter Eventname" name="event_name" required>
 
-    <label for="event_dates"><b>Event Dates</b></label><b for="event_dates" class = "star">*</b>
-    <input type="text" placeholder="ex- 15-18 Dec 2019" name="event_dates" required>
+    <label for="start_date" ><b>Event Start Date</b></label><b for="start_date" class = "star">*</b>
+    <input type="date" placeholder="dd/mm/yyyy" name="start_date" required>
 
-    <label for="sports"><b>Sports Available</b></label>
-    <input type="text" placeholder="ex- Cricket, Football, Basketball" name="sports" >
-  
+    <label for="end_date"><b>Event End Date</b></label><b for="end_date" class = "star">*</b>
+    <input type="date" placeholder="dd/mm/yyyy" name="end_date" required>
+
     <label for="registration_fees" id="reg"><b>Registration fees</b></label>
-    <input type="text" placeholder="ex- 1000" name="registration_fees">
+    <input type="text" placeholder="ex- 1000" name="registration_fees" >
     
     <label for="ldate"><b>Last Date for Registration</b></label>
     <input type="text" placeholder="ex- 10 Dec 2019" name="ldate" >
     
-    <label for="prize" id="pri"><b>Prize Money</b></label>
-    <input type="text" placeholder="ex- 50000" name="prize">
+    <label for="prize"><b>Prize Money</b></label>
+    <input type="text" placeholder="ex- 50000" name="prize_money">
     
     <label for="links"><b>Event Link</b></label>
     <input type="text" placeholder="Enter your registration link" name="links" >
     
+    <label for="sports"><b>Sports Available</b></label>
+    <textarea placeholder="ex- Cricket, Football, Basketball" name="sports" ></textarea>
+
     <label for="address"><b>Address</b></label>
     <textarea placeholder="Enter event address" name="address" ></textarea>
 
     <hr>
-
     <button type="submit" class="registerbtn" onclick="return validate()" >Add Event</button>
   </div>
   
