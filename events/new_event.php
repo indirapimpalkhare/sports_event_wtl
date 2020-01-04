@@ -19,9 +19,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     strval( date('Y/m/d', strtotime($last_date)));
     // Prepare an insert statement
     $sql ="INSERT INTO events (username, event_name,sdate,end_date,reg_fees,reg_last_date,prize_money,link,sport_details,addr ) values (?,?,?,?,?,?,?,?,?,?);";
-
+	
     if($stmt = mysqli_prepare($conn, $sql)){
-        // Bind variables to the prepared statement as parameters
+    // Bind variables to the prepared statement as parameters
         mysqli_stmt_bind_param($stmt, "ssssssssss", $param_username, $param_event_name,$param_sdate,$param_edate,$rfees,$lastDate,$cashPrize,$plink,$sportsDetails,$location);
         
         // Set parameters
@@ -41,14 +41,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(mysqli_stmt_execute($stmt)){
             // Redirect to home page
             echo "<script type='text/javascript'>alert('Event Added Successfully'); </script>";
-            header('Location: /sports_event/home/homepage.html');
+            header('Location: /sports_event/home/homepage.php');
         } else{
             echo "Something went wrong. Please try again later.";
         }
+		
     }
-     
-    // Close statement
+     // Close statement
     mysqli_stmt_close($stmt);
+    
 
 
 // Close connection

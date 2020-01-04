@@ -21,11 +21,14 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 ?>
 <body>
-<div class = "container">
+
 <?php
 echo file_get_contents("../navbar.html");
 //echo "I tried";
 ?>
+
+<div class = "container">
+
 
 <div class = "container" style="margin-top:50px">
 
@@ -43,7 +46,7 @@ if ($result->num_rows > 0) {
 		echo "<p class='card-text'>" . $row["sport_details"] . "</p>";
 		echo "</div>";
 		echo "<ul class='list-group list-group-flush'>";
-		echo "<li class='list-group-item'> <b> Start Date : </b>" . $row["start_date"] . "</li>";
+		echo "<li class='list-group-item'> <b> Start Date : </b>" . $row["sdate"] . "</li>";
 		echo "<li class='list-group-item'><b> End Date : </b>" . $row["end_date"] . "</li>" ;
 		echo "<li class='list-group-item'><b> Registration Fees : </b>" . $row["reg_fees"] . "</li>" ;
 		echo "</ul>";
