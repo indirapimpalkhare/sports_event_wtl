@@ -57,7 +57,7 @@ require_once("../dbconn.php");
 			echo "</ul>";
 			echo "<div class='card-body'> <b>Link : </b><a href='http://" . $link. "' class='card-link' style = 'color: lightcoral;'> " . $link . "</a>";
 			echo "<hr>";
-			echo "<form action='update_event.php'>"."<button class='btn my-2 my-sm-0 buttonlc' style='outline: auto; outline-color: lightcoral;' type='submit' value = ' " . $event_id. "'>UPDATE</button>" . " </form>" ;
+			echo "<form action='update_event.php' method = 'post'>"."<button class='btn my-2 my-sm-0 buttonlc' style='outline: auto; outline-color: lightcoral;' type='submit' value = ' " . $event_id. "' name = 'event_id'>UPDATE</button>" . " </form>" ;
 			echo "</div>"; 
 			echo "</div>";
 			echo "<hr>";
