@@ -12,7 +12,7 @@
 function validate(){
   if( Date.parse(document.new_event.start_date.value)>=Date.parse(document.new_event.end_date.value))
   {
-      alert("Enddate must be greater than start date");
+      alert("End date must be greater than start date");
       document.new_event.end_date.focus();
       return false;
    }
@@ -22,7 +22,7 @@ function validate(){
    var isnum2 = /^\d+$/.test(prizes);  
 
    if(reg_fees=="" && prizes==""){
-     return true;
+     return clicked();
    }
    else if(reg_fees != "" && prizes==""){
       if(!isnum1){
@@ -45,10 +45,19 @@ function validate(){
         return false;
     }
   }
+  clicked();
 }
   
 function clear_input(){
   document.new_event.reset();
+}
+
+function clicked() {
+   if (confirm('Are you sure you want to submit?')) {
+	   sub_button.submit();
+   } else {
+	   return false;
+   }
 }
 </script>
 </head>
@@ -87,7 +96,7 @@ function clear_input(){
     <textarea placeholder="Enter event address" name="address" ></textarea>
 
     <hr>
-    <button type="submit" class="registerbtn" onclick="return validate()" >Add Event</button>
+    <button type="submit" class="registerbtn" onclick=" return validate();" >Add Event</button>
   </div>
   
   <div class="container signin">
