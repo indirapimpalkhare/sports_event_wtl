@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 29, 2019 at 05:54 PM
+-- Generation Time: Jan 22, 2020 at 03:51 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -43,6 +43,14 @@ CREATE TABLE `events` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`event_id`, `username`, `event_name`, `sdate`, `end_date`, `reg_fees`, `reg_last_date`, `prize_money`, `link`, `sport_details`, `addr`) VALUES
+(7, 'KSHITIJA123', 'SUMMIT', '2019-09-04', '2019-09-09', '1000', '2019-09-03', '', '', '', ''),
+(8, 'indira', 'Zest', '2020-01-21', '2020-01-27', '1200', '', ' ', ' https://www.coepzest.org/', '', 'shivaji nagar pune');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -61,7 +69,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
