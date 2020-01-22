@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="sign_up.css">
+<link rel="stylesheet" type="text/css" href="homepage.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <head>
   <!--meta tag used for ease of viewing on any device-->
@@ -31,7 +31,61 @@ echo file_get_contents("../navbar.html");
 
 
 <div class = "container" style="margin-top:50px">
+<!--Adding a slideshow-->
+<h2>Some of Upcoming Events</h2>
 
+<div class="slideshow-container">
+
+<div class="mySlides fade">
+  <div class="numbertext">1 / 3</div>
+  <img src="http://localhost/sports_event/images/summit.jpeg" style="width:100%">
+  <div class="text">MITWPU SUMMIT 2019</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">2 / 3</div>
+  <img src="http://localhost/sports_event/images/zest.png" style="width:100%">
+  <div class="text">COEP ZEST 2020</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 3</div>
+  <img src="http://localhost/sports_event/images/adt.png" style="width:100%">
+  <div class="text">VISHWANATH SPORTS MEET 2020</div>
+</div>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 3000); // Change image every 3 seconds
+}
+</script>
+
+</body>
 <?php
 require_once("../dbconn.php");
 $sql = "SELECT * FROM events";
