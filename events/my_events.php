@@ -23,8 +23,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <body>
 
 <?php
-echo file_get_contents("../navbar.html");
-//echo "I tried";
+if($_SESSION["username"] == "admin"){
+	echo file_get_contents("../navbar_admin.html");
+}
+else{
+	echo file_get_contents("../navbar.html");
+}
 ?>
 
 <div class = "container">

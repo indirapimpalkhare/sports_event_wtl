@@ -4,6 +4,12 @@
 
 
 <?php
+if($_SESSION["username"] == "admin"){
+	echo file_get_contents("../navbar_admin.html");
+}
+else{
+	echo file_get_contents("../navbar.html");
+}
 session_start();
 
 require_once("../dbconn.php");

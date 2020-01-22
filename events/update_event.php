@@ -18,15 +18,20 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 	header("Refresh: 1; URL=/sports_event/login/log_in.php");
     exit;
 }
-echo file_get_contents("../navbar.html");
+if($_SESSION["username"] == "admin"){
+	echo file_get_contents("../navbar_admin.html");
+}
+else{
+	echo file_get_contents("../navbar.html");
+}
 require_once("../dbconn.php");
 $uname = $_SESSION["username"];
 $eid = $_POST["event_id"];
 /* create a prepared statement */
-if ($stmt = mysqli_prepare($conn, "SELECT event_name,reg_fees,prize_money,link,sport_details,addr FROM events WHERE username=? AND event_id = ?")) {
+if ($stmt = mysqli_prepare($conn, "SELECT event_name,reg_fees,prize_money,link,sport_details,addr FROM events where event_id = ?")) {
 
 	/* bind parameters for markers */
-	mysqli_stmt_bind_param($stmt, "ss", $uname, $eid);
+	mysqli_stmt_bind_param($stmt, "s", $eid);
 
 	/* execute query */
 	mysqli_stmt_execute($stmt);

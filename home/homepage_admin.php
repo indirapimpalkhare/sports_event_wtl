@@ -20,6 +20,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 ?>
+
+
 <body>
 
 <?php
@@ -31,64 +33,8 @@ else{
 }
 //echo "I tried";
 ?>
-
-<div class = "container">
-
-
-<div class = "container" style="margin-top:50px">
-<!--Adding a slideshow-->
-<h2>Some of Upcoming Events</h2>
-
-<div class="slideshow-container">
-
-<div class="mySlides fade">
-  <div class="numbertext">1 / 3</div>
-  <img src="http://localhost/sports_event/images/summit.jpeg" style="width:100%">
-  <div class="text">MITWPU SUMMIT 2019</div>
-</div>
-
-<div class="mySlides fade">
-  <div class="numbertext">2 / 3</div>
-  <img src="http://localhost/sports_event/images/zest.png" style="width:100%">
-  <div class="text">COEP ZEST 2020</div>
-</div>
-
-<div class="mySlides fade">
-  <div class="numbertext">3 / 3</div>
-  <img src="http://localhost/sports_event/images/adt.png" style="width:100%">
-  <div class="text">VISHWANATH SPORTS MEET 2020</div>
-</div>
-
-</div>
 <br>
-
-<div style="text-align:center">
-  <span class="dot"></span> 
-  <span class="dot"></span> 
-  <span class="dot"></span> 
-</div>
-
-<script>
-var slideIndex = 0;
-showSlides();
-
-function showSlides() {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}    
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-  setTimeout(showSlides, 3000); // Change image every 3 seconds
-}
-</script>
+<div class = "container">
 
 </body>
 <?php
@@ -110,6 +56,12 @@ if ($result->num_rows > 0) {
 		echo "<li class='list-group-item'><b> Registration Fees : </b>" . $row["reg_fees"] . "</li>" ;
 		echo "</ul>";
 		echo "<div class='card-body'> <a href='http://" . $row["link"] . "' class='card-link' style = 'color: lightcoral;'><b> Register Now! </b> </a>";
+		echo "<hr>";
+		echo "<div class = 'row'>";
+		echo "<form action='../events/update_event.php' method = 'post'>"."<button class='btn my-2 my-sm-0 buttonlc' style='outline: auto; outline-color: lightcoral;' type='submit' value = ' " . $row["event_id"]. "' name = 'event_id'>UPDATE</button>" . " </form>" ;
+		echo "&nbsp;&nbsp;&nbsp;";
+		echo "<form action='delete_event.php' method = 'post'>"."<button class='btn my-2 my-sm-0 buttonlc' style='outline: auto; outline-color: lightcoral;' type='submit' value = ' " . $row["event_id"]. "' name = 'event_id'>DELETE</button>" . " </form>" ;
+		echo "</div>";
 		echo "</div>";
 		echo "</div>";
 		echo "<hr>";
