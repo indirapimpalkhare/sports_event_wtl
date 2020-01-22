@@ -12,7 +12,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate username
     if(empty(trim($_POST["uname"]))){
         $username_err = "Please enter a username.";
-    } else{
+    }
+    else{
         // Prepare a select statement
         $sql = "SELECT * FROM users WHERE username = ?";
         
@@ -64,11 +65,7 @@ if(empty($username_err)){
     // Attempt to execute the prepared statement
         if(mysqli_stmt_execute($stmt)){
             // Redirect to login page
-<<<<<<< HEAD
-            header('Location: /sports_event/home/homepage.html');
-=======
             header('Location: /sports_event/home/homepage.php');
->>>>>>> f036b2c1d25ae54783a1e2257602a2a90af0d58b
         } else{
             echo "Something went wrong. Please try again later.";
         }
