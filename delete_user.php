@@ -5,43 +5,36 @@
 
 <?php
 session_start();
-
+echo file_get_contents("navbar_admin.html");
 require_once("dbconn.php");
-
-
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-	// Prepare an insert statement
-	//$username = $_SESSION["username"];
-	$uname = $_POST["username"];
-	$sql ="DELETE FROM users WHERE username = ?";
-	echo "sql done" . "<br>";
-	echo $uname . "<br>" ;
-	if($stmt = mysqli_prepare($conn, $sql)){
-		echo "prep done" . "<br>";
-	// Bind variables to the prepared statement as parameters
+$uname = $_POST["username"];
+/* create a prepared statement */
+if ($stmt = mysqli_prepare($conn, "DELETE FROM users where username = ?")) {
 
-		mysqli_stmt_bind_param($stmt, "s", $uname);
-		echo "sql done" . "<br>" ;
-		//Set parameters
+	/* bind parameters for markers */
+	mysqli_stmt_bind_param($stmt, "s", $uname);
+	
+	/* execute query */
+	if(mysqli_stmt_execute($stmt)){
+        // Redirect to home page
+        //echo "<script type='text/javascript'>alert('Event removed Successfully'); </script>";
+        //header('Location: /sports_event/home/homepage.php');
+		echo '<div class="alert alert-success">Delete Success!</div>' . "<br>" ;
+    } else{
+		echo '<div class="alert alert-danger">Something went wrong. PLease try again!</div>' . "<br>" ;
+        //echo "Something went wrong. Please try again later.";
+        //header('Location: /sports_event/home/homepage.php');
 
-		// Attempt to execute the prepared statement
-		if(mysqli_stmt_execute($stmt)){
-		// Redirect to home page
-			echo '<div class="alert alert-success">Delete Success!</div>' . "<br>" ;
-			//header('Location: /sports_event/home/homepage_admin.php');
-		} 
-		else{
-			echo '<div class="alert alert-danger">Something went wrong. PLease try again!</div>' . "<br>" ;
-			//header('Location: /sports_event/all_users.php');
-		}
-	}
-	// Close statement
-	mysqli_stmt_close($stmt);
+    }
+    
+}
 
-	// Close connection
-	mysqli_close($conn);
-	}
+
+// Close connection
+mysqli_close($conn);
+}
 ?>
 
 

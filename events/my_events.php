@@ -38,7 +38,7 @@ require_once("../dbconn.php");
 	$uname = $_SESSION["username"];
 
 	/* create a prepared statement */
-	if ($stmt = mysqli_prepare($conn, "SELECT event_id,event_name,sport_details,sdate,end_date, reg_fees, link FROM events WHERE username=?")) {
+	if ($stmt = mysqli_prepare($conn, "SELECT event_id,event_name,sport_details,sdate,end_date,reg_fees,link,reg_last_date,prize_money FROM events WHERE username=?")) {
 
 		/* bind parameters for markers */
 		mysqli_stmt_bind_param($stmt, "s", $uname);
@@ -50,7 +50,7 @@ require_once("../dbconn.php");
 	// Return the number of rows in result set
 	//$rows=mysqli_num_rows($conn);
 		/* bind result variables */
-		mysqli_stmt_bind_result($stmt,$event_id,$event_name,$sport_details,$sdate,$end_date,$reg_fees,$link );
+		mysqli_stmt_bind_result($stmt,$event_id,$event_name,$sport_details,$sdate,$end_date,$reg_fees,$link,$reg_last_date,$prize_money );
 		/* fetch value */
 		while (mysqli_stmt_fetch($stmt)) {
 			echo "<div class='card' style='width: 100%;'>";
@@ -62,12 +62,14 @@ require_once("../dbconn.php");
 			echo "<li class='list-group-item'> <b> Start Date : </b>" . $sdate. "</li>";
 			echo "<li class='list-group-item'><b> End Date : </b>" . $end_date. "</li>" ;
 			echo "<li class='list-group-item'><b> Registration Fees : </b>" . $reg_fees . "</li>" ;
+		echo "<li class='list-group-item'><b> Registration Last Date : </b>" . $reg_last_date . "</li>" ;
+		echo "<li class='list-group-item'><b> Prize Money : </b>" . $prize_money . "</li>" ;
 			echo "</ul>";
 			echo "<div class='card-body'> <b>Link : </b><a target ='_blank' href='http://" . $link. "' class='card-link' style = 'color: lightcoral;'> " . $link . "</a>";
 			echo "<hr>";
 			echo "<form action='update_event.php' method = 'post'>"."<button class='btn my-2 my-sm-0 buttonlc' style='outline: auto; outline-color: lightcoral;' type='submit' value = ' " . $event_id. "' name = 'event_id'>UPDATE</button>" . " </form>" ;
 			echo "<br>";
-			echo "<form action='delete_event.php' method = 'post'>"."<button class='btn my-2 my-sm-0 buttonlc' style='outline: auto; outline-color: lightcoral;' type='submit' value = ' " . $event_id. "' name = 'event_id'>DELETE</button> " . " </form>" ;
+			echo "<form action='delete_event.php' method = 'post'>"."<button class='btn my-2 my-sm-0 buttonlc' style='outline: auto; outline-color: lightcoral;' type='submit' value = '". $event_id ."' name = 'event_id'>DELETE</button> " . " </form>" ;
 			echo "</div>"; 
 			echo "</div>";
 			echo "<hr>";

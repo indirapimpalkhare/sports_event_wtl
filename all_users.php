@@ -52,9 +52,9 @@ if ($result->num_rows > 0) {
 			//echo "<div class = 'row'>";
 			//echo "<form action='../events/update_event.php' method = 'post'>"."<button class='btn my-2 my-sm-0 buttonlc' style='outline: auto; outline-color: lightcoral;' type='submit' value = ' " . $row["event_id"]. "' name = 'event_id'>UPDATE</button>" . " </form>" ;
 			echo "&nbsp;&nbsp;&nbsp;";
-			echo "<form action='delete_user.php' method = 'post'>"."<button class='btn my-2 my-sm-0 buttonlc' style='outline: auto; outline-color: lightcoral;' type='submit' value = ' " . $row["username"]. "' name = 'username'>DELETE</button>" . " </form>" ;
+			echo "<form action='delete_user.php' method = 'post'>"."<button class='btn my-2 my-sm-0 buttonlc' style='outline: auto; outline-color: lightcoral;' type='submit' value = '" . $row["username"]. "' name ='username'>DELETE</button>" . " </form>" ;
 			//echo "</div>";
-			echo "</div>";
+			echo "</div>"; 
 			//echo "</div>";
 			echo "<hr>";
 		}
