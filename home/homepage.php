@@ -109,7 +109,7 @@ if ($result->num_rows > 0) {
 		echo "<li class='list-group-item'><b> End Date : </b>" . $row["end_date"] . "</li>" ;
 		echo "<li class='list-group-item'><b> Registration Fees : </b>" . $row["reg_fees"] . "</li>" ;
 		echo "</ul>";
-		echo "<div class='card-body'> <a href='http://" . $row["link"] . "' class='card-link' style = 'color: lightcoral;'><b> Register Now! </b> </a>";
+		echo "<div class='card-body'> <a target = '_blank' href='http://" . $row["link"] . "' class='card-link' style = 'color: lightcoral;'><b> Register Now! </b> </a>";
 		echo "</div>";
 		echo "</div>";
 		echo "<hr>";

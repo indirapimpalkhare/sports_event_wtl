@@ -63,7 +63,7 @@ require_once("../dbconn.php");
 			echo "<li class='list-group-item'><b> End Date : </b>" . $end_date. "</li>" ;
 			echo "<li class='list-group-item'><b> Registration Fees : </b>" . $reg_fees . "</li>" ;
 			echo "</ul>";
-			echo "<div class='card-body'> <b>Link : </b><a href='http://" . $link. "' class='card-link' style = 'color: lightcoral;'> " . $link . "</a>";
+			echo "<div class='card-body'> <b>Link : </b><a target ='_blank' href='http://" . $link. "' class='card-link' style = 'color: lightcoral;'> " . $link . "</a>";
 			echo "<hr>";
 			echo "<form action='update_event.php' method = 'post'>"."<button class='btn my-2 my-sm-0 buttonlc' style='outline: auto; outline-color: lightcoral;' type='submit' value = ' " . $event_id. "' name = 'event_id'>UPDATE</button>" . " </form>" ;
 			echo "<br>";

@@ -20,7 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	$sport_details=$_POST["sports"];
 	$addr=$_POST["address"];
 	$event_id = $_POST["eid"];
-	$sql ="UPDATE events SET event_name = ?, reg_fees = ?,prize_money = ?,link = ?,sport_details = ? ,addr = ? WHERE username=? AND event_id = ? ;";
+	$sql ="UPDATE events SET event_name = ?, reg_fees = ?,prize_money = ?,link = ?,sport_details = ? ,addr = ? WHERE (username=? AND event_id = ?) ;";
 	echo "sql done";
 	echo $event_name;
 	if($stmt = mysqli_prepare($conn, $sql)){
