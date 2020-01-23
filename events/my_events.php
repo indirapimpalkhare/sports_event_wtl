@@ -45,6 +45,10 @@ require_once("../dbconn.php");
 
 		/* execute query */
 		mysqli_stmt_execute($stmt);
+		// Get number of columns -
+	//$rows=mysqli_field_count($conn);
+	// Return the number of rows in result set
+	//$rows=mysqli_num_rows($conn);
 		/* bind result variables */
 		mysqli_stmt_bind_result($stmt,$event_id,$event_name,$sport_details,$sdate,$end_date,$reg_fees,$link );
 		/* fetch value */
@@ -62,10 +66,14 @@ require_once("../dbconn.php");
 			echo "<div class='card-body'> <b>Link : </b><a href='http://" . $link. "' class='card-link' style = 'color: lightcoral;'> " . $link . "</a>";
 			echo "<hr>";
 			echo "<form action='update_event.php' method = 'post'>"."<button class='btn my-2 my-sm-0 buttonlc' style='outline: auto; outline-color: lightcoral;' type='submit' value = ' " . $event_id. "' name = 'event_id'>UPDATE</button>" . " </form>" ;
+			echo "<br>";
+			echo "<form action='delete_event.php' method = 'post'>"."<button class='btn my-2 my-sm-0 buttonlc' style='outline: auto; outline-color: lightcoral;' type='submit' value = ' " . $event_id. "' name = 'event_id'>DELETE</button> " . " </form>" ;
 			echo "</div>"; 
 			echo "</div>";
 			echo "<hr>";
 		}
+	
+	
 		/* close statement */
 		mysqli_stmt_close($stmt);
 	}
