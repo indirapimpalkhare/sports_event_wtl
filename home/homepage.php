@@ -108,6 +108,8 @@ if ($result->num_rows > 0) {
 		echo "<li class='list-group-item'> <b> Start Date : </b>" . $row["sdate"] . "</li>";
 		echo "<li class='list-group-item'><b> End Date : </b>" . $row["end_date"] . "</li>" ;
 		echo "<li class='list-group-item'><b> Registration Fees : </b>" . $row["reg_fees"] . "</li>" ;
+		echo "<li class='list-group-item'><b> Registration Last Date : </b>" . $row["reg_last_date"] . "</li>" ;
+		echo "<li class='list-group-item'><b> Prize Money : </b>" . $row["prize_money"] . "</li>" ;
 		echo "</ul>";
 		echo "<div class='card-body'> <a target = '_blank' href='http://" . $row["link"] . "' class='card-link' style = 'color: lightcoral;'><b> Register Now! </b> </a>";
 		echo "</div>";
