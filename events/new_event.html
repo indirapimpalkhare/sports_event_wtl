@@ -26,7 +26,7 @@ function validate(){
    }
    else if(reg_fees != "" && prizes==""){
       if(!isnum1){
-        alert("Regitration fees should have only numerical value!");
+        alert("Regitration fees should have only numerical, positive values!");
         document.new_event.registration_fees.focus();
         return false;
       }
@@ -38,6 +38,7 @@ function validate(){
      return false;
    }
   }
+  else if(reg_fees !=="
   else{
     if(!isnum1 || !isnum2){
       alert("Registration fees and prize field should have numerical values");
@@ -81,7 +82,7 @@ function clicked() {
     <input type="text" placeholder="ex- 1000" name="registration_fees"  >
     
     <label for="ldate"><b>Last Date for Registration</b></label>
-	<input type="date" placeholder="dd/mm/yyyy" name="ldate" required>
+	<input type="date" placeholder="dd/mm/yyyy" name="ldate">
     
     <label for="prize"><b>Prize Money</b></label>
     <input type="text" placeholder="ex- 50000" name="prize_money" >
